@@ -1,22 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./components/Main";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import React from "react";
 import Navbar from "./components/Navbar";
-import { Container } from "@mui/material";
+import "./App.css";
+import Home from "./components/pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Services from "./components/pages/Services";
+import Products from "./components/pages/Products";
+import SignUp from "./components/pages/SignUp";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Container>
-        <Navbar>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </Navbar>
-      </Container>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
