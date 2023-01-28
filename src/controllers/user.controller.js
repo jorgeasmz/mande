@@ -15,7 +15,7 @@ const createUser = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO user(user_id, user_email, user_pword, user_role, picture) VALUES ($0, $1, $2, $3, $4) RETURNING *", [anIdentification, anEmail, aPassword, aRole, aPicture]);
+        const query = await pool.query('INSERT INTO "user"(user_id, user_email, user_pword, user_role, picture) VALUES ($0, $1, $2, $3, $4) RETURNING *', [anIdentification, anEmail, aPassword, aRole, aPicture]);
 
         console.log(query);
 
@@ -33,7 +33,7 @@ const getAllUsers = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM user");
+        const query = await pool.query('SELECT * FROM "user"');
 
         console.log(query);
 
@@ -55,7 +55,7 @@ const getUser = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM user WHERE user_id = $0", [anID]);
+        const query = await pool.query('SELECT * FROM "user" WHERE user_id = $0', [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'User not found'
@@ -86,7 +86,7 @@ const updateUser = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE user SET user_email = $0, user_pword = $1, user_role = $2, picture = $3 WHERE user_id = $4 RETURNING *", [anEmail, aPassword, aRole, aPicture, anID]);
+        const query = await pool.query('UPDATE "user" SET user_email = $0, user_pword = $1, user_role = $2, picture = $3 WHERE user_id = $4 RETURNING *', [anEmail, aPassword, aRole, aPicture, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'User not found'
@@ -110,7 +110,7 @@ const deleteUser = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM user WHERE user_id = $0 RETURNING *", [anID]);
+        const query = await pool.query('DELETE FROM "user" WHERE user_id = $0 RETURNING *', [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'User not found'
