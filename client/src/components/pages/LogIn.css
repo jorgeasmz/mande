@@ -22,11 +22,6 @@
   display: flex;
 }
 
-.error {
-  color: red;
-  font-size: 12px;
-}
-
 .title {
   font-size: 30px;
   margin-bottom: 20px;

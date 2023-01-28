@@ -1,79 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import "./LogIn.css";
 import "../../App.css";
-//import "../../../../src/routes/user.routes"
 import { Button, TextField } from "@mui/material";
-//import { getAllUsers } from "../../../../src/controllers/user.controller";
 
 export default function LogIn() {
-
-  // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1",
+  // Formik Implementation for LogIn Validation
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
     },
-    {
-      username: "user2",
-      password: "pass2",
+    validationSchema: Yup.object({
+      email: Yup.string("Enter your email")
+        .email("Enter a valid email")
+        .required("You must type your email"),
+      password: Yup.string("Enter your password").required(
+        "You must type your password"
+      ),
+    }),
+    onSubmit: (values, actions) => {
+      alert(JSON.stringify(values, null, 2));
+      actions.resetForm();
     },
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.user_email === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.user_pword !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  });
 
   // JSX code for login form
   const renderForm = (
     <div className="form">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <div className="input-login-container">
-          <TextField variant="filled" label="Username" name="uname" required />
-          {renderErrorMessage("uname")}
+          <TextField
+            label="Email"
+            name="email"
+            id="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
         </div>
         <div className="input-login-container">
           <TextField
-            variant="filled"
             label="Password"
-            name="pass"
+            name="password"
+            id="password"
             type="password"
-            required
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
           />
-          {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
           <Button variant="contained" color="primary" type="submit">
@@ -88,7 +68,7 @@ export default function LogIn() {
     <div className="entry">
       <div className="log-in">
         <div className="title">Log In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {renderForm}
       </div>
     </div>
   );
