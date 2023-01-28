@@ -18,6 +18,7 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/log-in" element={<LogIn />} />
+          <Route path="*" element={<Home />}/>
         </Routes>
       </BrowserRouter>
   );

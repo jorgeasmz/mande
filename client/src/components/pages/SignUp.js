@@ -1,95 +1,112 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import "./SignUp.css";
 import "../../App.css";
-import { TextField, Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 export default function SignUp() {
-  // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1",
+  // Formik Implementation for LogIn Validation
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      identification: "",
+      email: "",
+      password: "",
     },
-    {
-      username: "user2",
-      password: "pass2",
+    validationSchema: Yup.object({
+      firstName: Yup.string("Enter your first name").required(
+        "You must type your first name"
+      ),
+      lastName: Yup.string("Enter your last name").required(
+        "You must type your last name"
+      ),
+      identification: Yup.number("Enter your id number")
+        .typeError("Identification must me a number")
+        .required("You must type your id number"),
+      email: Yup.string("Enter your email")
+        .email("Enter a valid email")
+        .required("You must type your email"),
+      password: Yup.string("Enter your password").required(
+        "You must type your password"
+      ),
+    }),
+    onSubmit: (values, actions) => {
+      alert(JSON.stringify(values, null, 2));
+      actions.resetForm();
     },
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  });
 
   // JSX code for login form
   const renderForm = (
     <div className="form">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <div className="input-signup-container">
           <TextField
-            variant="filled"
             label="First Name"
-            name="lname"
-            required
+            name="firstName"
+            id="firstName"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
           />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-signup-container">
-          <TextField variant="filled" label="Last Name" name="lname" required />
-          {renderErrorMessage("uname")}
         </div>
         <div className="input-signup-container">
           <TextField
-            variant="filled"
+            label="Last Name"
+            name="lastName"
+            id="lastName"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+          />
+        </div>
+        <div className="input-signup-container">
+          <TextField
+            label="Identification"
+            name="identification"
+            id="identification"
+            value={formik.values.identification}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.identification &&
+              Boolean(formik.errors.identification)
+            }
+            helperText={
+              formik.touched.identification && formik.errors.identification
+            }
+          />
+        </div>
+        <div className="input-signup-container">
+          <TextField
             label="Email"
             name="email"
-            type="email"
-            required
+            id="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
           />
-          {renderErrorMessage("uname")}
         </div>
         <div className="input-signup-container">
           <TextField
-            variant="filled"
             label="Password"
-            name="pass"
             type="password"
-            required
+            name="password"
+            id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
           />
-          {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
           <Button variant="contained" color="primary" type="submit">
@@ -104,7 +121,7 @@ export default function SignUp() {
     <div className="entry">
       <div className="sign-up">
         <div className="title">Sign Up</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {renderForm}
       </div>
     </div>
   );
