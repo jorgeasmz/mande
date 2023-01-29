@@ -13,7 +13,7 @@ const createWorker = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO worker(worker_id, acct_number, id_scan) VALUES ($0, $1, $2) RETURNING *", [anIdentification, anAccountNumber, anIdScan]);
+        const query = await pool.query("INSERT INTO worker(worker_id, acct_number, id_scan) VALUES ($1, $2, $3) RETURNING *", [anIdentification, anAccountNumber, anIdScan]);
 
         console.log(query);
 
@@ -53,7 +53,7 @@ const getWorker = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM worker WHERE worker_id = $0", [anID]);
+        const query = await pool.query("SELECT * FROM worker WHERE worker_id = $1", [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Worker not found'
@@ -83,7 +83,7 @@ const updateWorker = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE worker SET is_active = $0, acct_number = $1, id_scan = $2 WHERE worker_id = $3 RETURNING *", [anActiveValue, anAccountNumber, anIdScan, anID]);
+        const query = await pool.query("UPDATE worker SET is_active = $1, acct_number = $2, id_scan = $3 WHERE worker_id = $4 RETURNING *", [anActiveValue, anAccountNumber, anIdScan, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Worker not found'
@@ -107,7 +107,7 @@ const deleteWorker = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM worker WHERE worker_id = $0 RETURNING *", [anID]);
+        const query = await pool.query("DELETE FROM worker WHERE worker_id = $1 RETURNING *", [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'Worker not found'

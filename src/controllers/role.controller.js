@@ -12,7 +12,7 @@ const createRole = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO role(role_name, role_desc) VALUES ($0, $1) RETURNING *", [aRoleName, aRoleDesc]);
+        const query = await pool.query("INSERT INTO role(role_name, role_desc) VALUES ($1, $2) RETURNING *", [aRoleName, aRoleDesc]);
 
         console.log(query);
 
@@ -52,7 +52,7 @@ const getRole = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM role WHERE role_id = $0", [anID]);
+        const query = await pool.query("SELECT * FROM role WHERE role_id = $1", [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Role not found'
@@ -81,7 +81,7 @@ const updateRole = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE role SET role_name = $0, role_desc = $1 WHERE role_id = $2 RETURNING *", [aRoleName, aRoleDesc, anID]);
+        const query = await pool.query("UPDATE role SET role_name = $1, role_desc = $2 WHERE role_id = $3 RETURNING *", [aRoleName, aRoleDesc, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Role not found'
@@ -105,7 +105,7 @@ const deleteRole = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM role WHERE role_id = $0 RETURNING *", [anID]);
+        const query = await pool.query("DELETE FROM role WHERE role_id = $1 RETURNING *", [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'Role not found'
