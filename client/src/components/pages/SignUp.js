@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import "./SignUp.css";
 import "../../App.css";
+import * as Yup from "yup";
 import { Button, TextField } from "@mui/material";
 
 export default function SignUp() {
@@ -33,8 +33,29 @@ export default function SignUp() {
       ),
     }),
     onSubmit: (values, actions) => {
-      alert(JSON.stringify(values, null, 2));
+      const vals = { ...values };
       actions.resetForm();
+      fetch("http://localhost:3000/auth/sign-up", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(vals),
+      })
+        .catch((err) => {
+          return;
+        })
+        .then((res) => {
+          if (!res || !res.ok || res.status >= 400) {
+            return;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (!data) return;
+          console.log(data);
+        });
     },
   });
 
