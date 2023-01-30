@@ -15,7 +15,7 @@ const createUser = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query('INSERT INTO "user"(user_id, user_email, user_pword, user_role, picture) VALUES ($1, $2, $3, $4, $5) RETURNING *', [anIdentification, anEmail, aPassword, aRole, aPicture]);
+        const query = await pool.query('INSERT INTO "user" (user_id, user_email, user_pword, user_role, picture) VALUES ($1, $2, $3, $4, $5) RETURNING *', [anIdentification, anEmail, aPassword, aRole, aPicture]);
 
         console.log(query);
 

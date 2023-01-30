@@ -13,7 +13,7 @@ const createWorker = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO worker(worker_id, acct_number, id_scan) VALUES ($1, $2, $3) RETURNING *", [anIdentification, anAccountNumber, anIdScan]);
+        const query = await pool.query("INSERT INTO worker (worker_id, acct_number, id_scan) VALUES ($1, $2, $3) RETURNING *", [anIdentification, anAccountNumber, anIdScan]);
 
         console.log(query);
 

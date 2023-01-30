@@ -12,7 +12,7 @@ const createRole = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO role(role_name, role_desc) VALUES ($1, $2) RETURNING *", [aRoleName, aRoleDesc]);
+        const query = await pool.query("INSERT INTO role (role_name, role_desc) VALUES ($1, $2) RETURNING *", [aRoleName, aRoleDesc]);
 
         console.log(query);
 
