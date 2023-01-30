@@ -16,7 +16,7 @@ const createPerson = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO person(identification, first_name, last_name, email, phone_number, utility_bill) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [anIdentification, aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill]);
+        const query = await pool.query("INSERT INTO person (identification, first_name, last_name, email, phone_number, utility_bill) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [anIdentification, aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill]);
 
         console.log(query);
 

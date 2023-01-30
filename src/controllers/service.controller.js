@@ -7,8 +7,6 @@ const createService = async (req, res, next) => {
 
     const {
         aDescription,
-        aTime,
-        aDate,
         aClientID,
         aPaymentID,
         aWorkerTaskID
@@ -16,9 +14,11 @@ const createService = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO service(service_desc, time, date, id_client, id_payment, id_worker-task) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [aDescription, aTime, aDate, aClientID, aPaymentID, aWorkerTaskID]);
+        const firstQuery = await pool.query('INSERT INTO service (service_desc, "time", date, id_client, id_payment, "id_worker-task") VALUES ($1, (SELECT CURRENT_TIME), (SELECT CURRENT_DATE), $2, $3, $4) RETURNING *', [aDescription, aClientID, aPaymentID, aWorkerTaskID]);
 
-        console.log(query);
+        const secondQuery = await pool.query('UPDATE worker SET is_active = true RETURNING *');
+
+        console.log(firstQuery, secondQuery);
 
         res.send('Service created.');
 
@@ -89,7 +89,7 @@ const updateService = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE service SET service_desc = $1, time = $2, date = $3, id_client = $4, id_payment = $5, id_worker-task = $6 WHERE service_id = $7 RETURNING *", [aDescription, aTime, aDate, aClientID, aPaymentID, aWorkerTaskID, anID]);
+        const query = await pool.query('UPDATE service SET service_desc = $1, "time" = $2, date = $3, id_client = $4, id_payment = $5, "id_worker-task" = $6 WHERE service_id = $7 RETURNING *', [aDescription, aTime, aDate, aClientID, aPaymentID, aWorkerTaskID, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Service not found'

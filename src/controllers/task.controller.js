@@ -13,7 +13,7 @@ const createTask = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO task(task_name, task_desc, payment_mode) VALUES ($1, $2, $3) RETURNING *", [aTaskName, aTaskDesc, aPaymentMode]);
+        const query = await pool.query("INSERT INTO task (task_name, task_desc, payment_mode) VALUES ($1, $2, $3) RETURNING *", [aTaskName, aTaskDesc, aPaymentMode]);
 
         console.log(query);
 
