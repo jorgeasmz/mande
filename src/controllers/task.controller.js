@@ -13,7 +13,7 @@ const createTask = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO task(task_name, task_desc, payment_mode) VALUES ($0, $1, $2) RETURNING *", [aTaskName, aTaskDesc, aPaymentMode]);
+        const query = await pool.query("INSERT INTO task (task_name, task_desc, payment_mode) VALUES ($1, $2, $3) RETURNING *", [aTaskName, aTaskDesc, aPaymentMode]);
 
         console.log(query);
 
@@ -53,7 +53,7 @@ const getTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM task WHERE task_id = $0", [anID]);
+        const query = await pool.query("SELECT * FROM task WHERE task_id = $1", [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Task not found'
@@ -83,7 +83,7 @@ const updateTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE task SET task_name = $0, task_desc = $1, payment_mode = $2 WHERE task_id = $3 RETURNING *", [aTaskName, aTaskDesc, aPaymentMode, anID]);
+        const query = await pool.query("UPDATE task SET task_name = $1, task_desc = $2, payment_mode = $3 WHERE task_id = $4 RETURNING *", [aTaskName, aTaskDesc, aPaymentMode, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Task not found'
@@ -107,7 +107,7 @@ const deleteTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM task WHERE task_id = $0 RETURNING *", [anID]);
+        const query = await pool.query("DELETE FROM task WHERE task_id = $1 RETURNING *", [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'Task not found'

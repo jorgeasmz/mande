@@ -16,7 +16,7 @@ const createPerson = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO person(identification, first_name, last_name, email, phone_number, utility_bill) VALUES ($0, $1, $2, $3, $4, $5) RETURNING *", [anIdentification, aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill]);
+        const query = await pool.query("INSERT INTO person (identification, first_name, last_name, email, phone_number, utility_bill) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [anIdentification, aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill]);
 
         console.log(query);
 
@@ -56,7 +56,7 @@ const getPerson = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM person WHERE identification = $0", [anID]);
+        const query = await pool.query("SELECT * FROM person WHERE identification = $1", [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Person not found'
@@ -88,7 +88,7 @@ const updatePerson = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE person SET first_name = $0, last_name = $1, email = $2, phone_number = $3, utility_bill = $4 WHERE identification = $5 RETURNING *", [aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill, anID]);
+        const query = await pool.query("UPDATE person SET first_name = $1, last_name = $2, email = $3, phone_number = $4, utility_bill = $5 WHERE identification = $6 RETURNING *", [aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Person not found'
@@ -112,7 +112,7 @@ const deletePerson = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM person WHERE identification = $0 RETURNING *", [anID]);
+        const query = await pool.query("DELETE FROM person WHERE identification = $1 RETURNING *", [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'Person not found'

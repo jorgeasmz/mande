@@ -12,7 +12,7 @@ const createClient = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO client(client_id, card_number) VALUES ($0, $1) RETURNING *", [anIdentification, aCardNumber]);
+        const query = await pool.query("INSERT INTO client (client_id, card_number) VALUES ($1, $2) RETURNING *", [anIdentification, aCardNumber]);
 
         console.log(query);
 
@@ -52,7 +52,7 @@ const getClient = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM client WHERE client_id = $0", [anID]);
+        const query = await pool.query("SELECT * FROM client WHERE client_id = $1", [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Client not found'
@@ -80,7 +80,7 @@ const updateClient = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE client SET card_number = $0 WHERE client_id = $1 RETURNING *", [aCardNumber, anID]);
+        const query = await pool.query("UPDATE client SET card_number = $1 WHERE client_id = $2 RETURNING *", [aCardNumber, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'Client not found'
@@ -104,7 +104,7 @@ const deleteClient = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM client WHERE client_id = $0 RETURNING *", [anID]);
+        const query = await pool.query("DELETE FROM client WHERE client_id = $1 RETURNING *", [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'Client not found'
