@@ -4,8 +4,11 @@ import "./SignUp.css";
 import "../../App.css";
 import * as Yup from "yup";
 import { Button, TextField } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 export default function SignUp() {
+
+  const navigate = useNavigate()
   // Formik Implementation for LogIn Validation
   const formik = useFormik({
     initialValues: {
@@ -130,7 +133,7 @@ export default function SignUp() {
           />
         </div>
         <div className="button-container">
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" onClick={()=> navigate('/sign-up/role')}>
             Accept
           </Button>
         </div>
