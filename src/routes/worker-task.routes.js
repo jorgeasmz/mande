@@ -6,7 +6,8 @@ const {
     getAllWorkerTasks,
     getWorkerTask,
     updateWorkerTask,
-    deleteWorkerTask
+    deleteWorkerTask,
+    getWorkersFromTask
     } = require('../controllers/worker-task.controller');
 
 const router = Router();
@@ -16,6 +17,8 @@ router.post('/worker-tasks', createWorkerTask);
 router.get('/worker-tasks', getAllWorkerTasks);
 
 router.get('/worker-tasks/:anID', getWorkerTask);
+
+router.get('/worker-tasks/task_id/:anTaskId', getWorkersFromTask);
 
 router.put('/worker-tasks/:anID', updateWorkerTask);
 

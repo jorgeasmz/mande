@@ -2,6 +2,7 @@
 
 // USING CONNECTION
 const pool = require('../database/connection');
+// /http://localhost:3001/worker-tasks
 
 const createWorkerTask = async (req, res, next) => {
 
@@ -69,6 +70,28 @@ const getWorkerTask = async (req, res, next) => {
 
 };
 
+const getWorkersFromTask = async (req, res, next) => {
+    const {
+        anTaskId
+    } = req.params;
+    try {
+
+        const query = await pool.query('SELECT * FROM "worker-task" WHERE "id_task" = $1', [anTaskId]);
+
+        if (query.rows.length === 0) return res.status(404).json({
+            message: '404 not found'
+        })
+
+        res.json(query.rows);
+
+    } catch (error) {
+        
+        next(error);
+
+    }
+
+}
+
 const updateWorkerTask = async (req, res, next) => {
 
     const {
@@ -128,5 +151,6 @@ module.exports = {
     getAllWorkerTasks,
     getWorkerTask,
     updateWorkerTask,
-    deleteWorkerTask
+    deleteWorkerTask,
+    getWorkersFromTask
 }

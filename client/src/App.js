@@ -29,16 +29,16 @@ export default function App() {
           <Route path="/historial-pago" element={<HistorialPago />}/>
           <Route path="/pagar-servicio" element={<PagoServicio />}/>
           <Route path="/select-servicio" element={<SelectServicio />}/>
-          <Route path="/listado-servicio/Aseo" element={<ListadoServicio type = "aseo"/>}/>
-          <Route path="/listado-servicio/Mascotas" element={<ListadoServicio type = "mascota"/>}/>
-          <Route path="/listado-servicio/Jardinería" element={<ListadoServicio type = "jardineria"/>}/>
-          <Route path="/listado-servicio/Estudio" element={<ListadoServicio type = "estudio"/>}/>
-          <Route path="/listado-servicio/Cerrajería" element={<ListadoServicio type = "cerrajeria"/>}/>
-          <Route path="/listado-servicio/Retratos" element={<ListadoServicio type = "retrato"/>}/>
-          <Route path="/listado-servicio/Musica" element={<ListadoServicio type = "musica"/>}/>
-          <Route path="/listado-servicio/Belleza" element={<ListadoServicio type = "belleza"/>}/>
-          <Route path="/listado-servicio/Lavandería" element={<ListadoServicio type = "lavanderia"/>}/>
-          <Route path="/listado-servicio/Fotografías" element={<ListadoServicio type = "fotografia"/>}/>
+          <Route path="/listado-servicio/Aseo" element={<ListadoServicio type = "aseo" id="10"/>}/>
+          <Route path="/listado-servicio/Mascotas" element={<ListadoServicio type = "mascota" id="1"/>}/>
+          <Route path="/listado-servicio/Jardinería" element={<ListadoServicio type = "jardineria" id="2"/>}/>
+          <Route path="/listado-servicio/Estudio" element={<ListadoServicio type = "estudio" id="3"/>}/>
+          <Route path="/listado-servicio/Cerrajería" element={<ListadoServicio type = "cerrajeria" id="7"/>}/>
+          <Route path="/listado-servicio/Retratos" element={<ListadoServicio type = "retrato" id="8"/>}/>
+          <Route path="/listado-servicio/Musica" element={<ListadoServicio type = "musica" id="9"/>}/>
+          <Route path="/listado-servicio/Belleza" element={<ListadoServicio type = "belleza" id="11"/>}/>
+          <Route path="/listado-servicio/Lavandería" element={<ListadoServicio type = "lavanderia" id="14"/>}/>
+          <Route path="/listado-servicio/Fotografías" element={<ListadoServicio type = "fotografia" id="15"/>}/>
           
           
         </Routes>
