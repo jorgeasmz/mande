@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const session = require("express-session");
+require("dotenv").config();
 
 // ROUTES
 const clientRoutes = require("./routes/client.routes");
@@ -24,6 +26,18 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(session({
+  secret: process.env.COOKIE_SECRET,
+  credentials: true,
+  name: "sid",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.ENVIRONMENT === "production" ? "true" : "auto",
+    httpOnly: true,
+    sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax"
+  }
+}))
 
 app.use(authRoutes);
 app.use(clientRoutes);

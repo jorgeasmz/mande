@@ -3,36 +3,50 @@ import { useFormik } from "formik";
 import "./SignUp.css";
 import "../../App.css";
 import * as Yup from "yup";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 export default function SignUp() {
   // Formik Implementation for LogIn Validation
   const formik = useFormik({
     initialValues: {
+      identification: "",
       firstName: "",
       lastName: "",
-      identification: "",
+      phoneNumber: "",
       email: "",
       password: "",
+      role: "2",
     },
     validationSchema: Yup.object({
+      identification: Yup.number("Enter your id number")
+        .typeError("Identification must me a number")
+        .required("You must type your id number"),
       firstName: Yup.string("Enter your first name").required(
         "You must type your first name"
       ),
       lastName: Yup.string("Enter your last name").required(
         "You must type your last name"
       ),
-      identification: Yup.number("Enter your id number")
-        .typeError("Identification must me a number")
-        .required("You must type your id number"),
+      phoneNumber: Yup.number("Enter your phone number")
+        .typeError("Phone is not a number")
+        .required("You must type your phone number"),
       email: Yup.string("Enter your email")
         .email("Enter a valid email")
         .required("You must type your email"),
       password: Yup.string("Enter your password").required(
         "You must type your password"
       ),
+      role: Yup.string("Select a role").required("You must select a role"),
     }),
     onSubmit: (values, actions) => {
+      alert(JSON.stringify(values, null, 2));
       const vals = { ...values };
       actions.resetForm();
       fetch("http://localhost:3000/auth/sign-up", {
@@ -65,6 +79,23 @@ export default function SignUp() {
       <form onSubmit={formik.handleSubmit}>
         <div className="input-signup-container">
           <TextField
+            label="Identification"
+            name="identification"
+            id="identification"
+            value={formik.values.identification}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.identification &&
+              Boolean(formik.errors.identification)
+            }
+            helperText={
+              formik.touched.identification && formik.errors.identification
+            }
+          />
+        </div>
+        <div className="input-signup-container">
+          <TextField
             label="First Name"
             name="firstName"
             id="firstName"
@@ -89,19 +120,16 @@ export default function SignUp() {
         </div>
         <div className="input-signup-container">
           <TextField
-            label="Identification"
-            name="identification"
-            id="identification"
-            value={formik.values.identification}
+            label="Phone Number"
+            name="phoneNumber"
+            id="phoneNumber"
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.identification &&
-              Boolean(formik.errors.identification)
+              formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
             }
-            helperText={
-              formik.touched.identification && formik.errors.identification
-            }
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
           />
         </div>
         <div className="input-signup-container">
@@ -128,6 +156,29 @@ export default function SignUp() {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+        </div>
+        <div className="input-signup-container">
+            <FormLabel>Register As:</FormLabel>
+            <RadioGroup
+              name="role"
+              value={formik.values.role}
+              onChange={formik.handleChange}
+            >
+              <FormControlLabel
+                label="Client"
+                name="role"
+                id="frole"
+                value="2"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                label="Worker"
+                name="role"
+                id="srole"
+                value="3"
+                control={<Radio />}
+              />
+            </RadioGroup>
         </div>
         <div className="button-container">
           <Button variant="contained" color="primary" type="submit">
