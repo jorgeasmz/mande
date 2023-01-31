@@ -2,24 +2,28 @@
 
 // USING CONNECTION
 const pool = require('../database/connection');
+const bcrypt = require('bcrypt');
 
 const createUser = async (req, res, next) => {
 
     const {
-        anIdentification,
-        anEmail,
-        aPassword,
-        aRole,
-        aPicture
+        identification,
+        email,
+        password,
+        role
         } = req.body;
     
     try {
 
-        const query = await pool.query('INSERT INTO "user" (user_id, user_email, user_pword, user_role, picture) VALUES ($1, $2, $3, $4, $5) RETURNING *', [anIdentification, anEmail, aPassword, aRole, aPicture]);
+        const hashedPass = await bcrypt.hash(password, 10);
+        console.log(hashedPass);
+
+        const query = await pool.query('INSERT INTO "user" (user_id, user_email, user_pword, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [identification, email, hashedPass, role]);
 
         console.log(query);
 
-        res.send('User created.');
+        // res.send('User created.');
+        console.log("User created");
 
     } catch (error) {
 

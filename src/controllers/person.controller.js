@@ -6,21 +6,21 @@ const pool = require('../database/connection');
 const createPerson = async (req, res, next) => {
 
     const {
-        anIdentification,
-        aFirstName,
-        aLastName,
-        anEmail,
-        aPhoneNumber,
-        aUtilityBill
+        identification,
+        firstName,
+        lastName,
+        email,
+        phoneNumber
         } = req.body;
     
     try {
 
-        const query = await pool.query("INSERT INTO person (identification, first_name, last_name, email, phone_number, utility_bill) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [anIdentification, aFirstName, aLastName, anEmail, aPhoneNumber, aUtilityBill]);
+        const query = await pool.query("INSERT INTO person (identification, first_name, last_name, email, phone_number) VALUES ($1, $2, $3, $4, $5) RETURNING *", [identification, firstName, lastName, email, phoneNumber]);
 
         console.log(query);
 
-        res.send('Person created.');
+        // res.send('Person created.');
+        console.log("Person created");
 
     } catch (error) {
 
