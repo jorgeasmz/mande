@@ -6,10 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Services from "./components/pages/Services";
 import Products from "./components/pages/Products";
 import SignUp from "./components/pages/SignUp";
+import NewWorker from "./components/pages/NewWorker";
+import NewClient from "./components/pages/NewClient";
 import LogIn from "./components/pages/LogIn";
 
-import Role from "./components/pages/Role";
-import Working from "./components/pages/Working";
 import WorkerMenu from "./components/pages/WorkerMenu";
 import WorkerSelected from "./components/pages/WorkerSelected";
 import PaymentHistory from "./components/pages/PaymentHistory";
@@ -34,8 +34,8 @@ export default function App() {
           <Route path="/log-in" element={<LogIn />} />
           <Route path="*" element={<Home />}/>
 
-          <Route path="/sign-up/role" element={<Role />} />
-          <Route path="/sign-up/working" element={<Working />} />
+          <Route path="/sign-up/new-client" element={<NewClient />} />
+          <Route path="/sign-up/new-worker" element={<NewWorker />} />
           <Route path="/worker_menu" element={<WorkerMenu />} />
           <Route path="/worker_selected" element={<WorkerSelected />} />
           <Route path="/payment_history" element={<PaymentHistory />} />

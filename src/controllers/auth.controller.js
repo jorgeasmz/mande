@@ -16,7 +16,7 @@ const sendLogin = async (req, res) => {
   const { email, password } = req.body;
 
   const potentialLogin = await pool.query(
-    'SELECT user_id, user_email, user_pword FROM "user" u WHERE u.user_email = $1',
+    'SELECT user_id, user_email, user_pword, user_role FROM "user" u WHERE u.user_email = $1',
     [email]
   );
 
@@ -34,7 +34,7 @@ const sendLogin = async (req, res) => {
         id: potentialLogin.rows[0].identification
       };
 
-      res.json({ loggedIn: true, email });
+      res.json({ loggedIn: true, email, role: potentialLogin.rows[0].user_role });
 
     } else {
       res.json({ loggedIn: false, status: "Wrong username or password!" });

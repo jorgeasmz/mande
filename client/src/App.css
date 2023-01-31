@@ -40,4 +40,46 @@
   background-repeat: no-repeat;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px;
+  font-size: 20px;
+}
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.list-container {
+  display: flex;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sign-up {
+  height: 70%;
+  padding: 2rem 3rem;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow:scroll;
+  overflow-x:hidden;
+}
+
+.log-in {
+  padding: 2rem 3rem;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.new-user {
+  padding: 2rem 3rem;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
