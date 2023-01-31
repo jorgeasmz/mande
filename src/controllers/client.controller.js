@@ -12,7 +12,7 @@ const createClient = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO client(client_id, card_number) VALUES ($1, $2) RETURNING *", [anIdentification, aCardNumber]);
+        const query = await pool.query("INSERT INTO client (client_id, card_number) VALUES ($1, $2) RETURNING *", [anIdentification, aCardNumber]);
 
         console.log(query);
 

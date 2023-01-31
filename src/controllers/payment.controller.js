@@ -12,9 +12,11 @@ const createPayment = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO payment(id_service, amount) VALUES ($1, $2) RETURNING *", [aServiceID, anAmount]);
+        const firstQuery = await pool.query("INSERT INTO payment (id_service, amount) VALUES ($1, $2) RETURNING *", [aServiceID, anAmount]);
 
-        console.log(query);
+        const secondQuery = await pool.query('UPDATE worker SET is_active = false RETURNING *');
+
+        console.log(firstQuery, secondQuery);
 
         res.send('Payment created.');
 

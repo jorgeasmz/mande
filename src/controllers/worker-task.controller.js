@@ -2,6 +2,7 @@
 
 // USING CONNECTION
 const pool = require('../database/connection');
+// /http://localhost:3001/worker-tasks
 
 const createWorkerTask = async (req, res, next) => {
 
@@ -13,7 +14,7 @@ const createWorkerTask = async (req, res, next) => {
     
     try {
 
-        const query = await pool.query("INSERT INTO worker-task(id_worker, id_task, price) VALUES ($1, $2, $3) RETURNING *", [aWorkerID, aTaskID, aPrice]);
+        const query = await pool.query('INSERT INTO "worker-task" (id_worker, id_task, price) VALUES ($1, $2, $3) RETURNING *', [aWorkerID, aTaskID, aPrice]);
 
         console.log(query);
 
@@ -31,7 +32,7 @@ const getAllWorkerTasks = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM worker-task");
+        const query = await pool.query('SELECT * FROM "worker-task"');
 
         console.log(query);
 
@@ -53,7 +54,7 @@ const getWorkerTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("SELECT * FROM worker-task WHERE worker-task_id = $1", [anID]);
+        const query = await pool.query('SELECT * FROM "worker-task" WHERE "worker-task_id" = $1', [anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'WorkerTask not found'
@@ -69,6 +70,28 @@ const getWorkerTask = async (req, res, next) => {
 
 };
 
+const getWorkersFromTask = async (req, res, next) => {
+    const {
+        anTaskId
+    } = req.params;
+    try {
+
+        const query = await pool.query('SELECT * FROM "worker-task" WHERE "id_task" = $1', [anTaskId]);
+
+        if (query.rows.length === 0) return res.status(404).json({
+            message: '404 not found'
+        })
+
+        res.json(query.rows);
+
+    } catch (error) {
+        
+        next(error);
+
+    }
+
+}
+
 const updateWorkerTask = async (req, res, next) => {
 
     const {
@@ -82,7 +105,7 @@ const updateWorkerTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("UPDATE worker-task SET id_task = $1, price = $2 WHERE worker-task_id = $3 RETURNING *", [aTaskID, aPrice, anID]);
+        const query = await pool.query('UPDATE "worker-task" SET id_task = $1, price = $2 WHERE "worker-task_id" = $3 RETURNING *', [aTaskID, aPrice, anID]);
 
         if (query.rows.length === 0) return res.status(404).json({
             message: 'WorkerTask not found'
@@ -106,7 +129,7 @@ const deleteWorkerTask = async (req, res, next) => {
 
     try {
 
-        const query = await pool.query("DELETE FROM worker-task WHERE worker-task_id = $1 RETURNING *", [anID]);
+        const query = await pool.query('DELETE FROM "worker-task" WHERE "worker-task_id" = $1 RETURNING *', [anID]);
 
         if (query.rowCount === 0) return res.status(404).json({
             message: 'WorkerTask not found'
@@ -128,5 +151,6 @@ module.exports = {
     getAllWorkerTasks,
     getWorkerTask,
     updateWorkerTask,
-    deleteWorkerTask
+    deleteWorkerTask,
+    getWorkersFromTask
 }
