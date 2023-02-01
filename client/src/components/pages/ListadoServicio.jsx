@@ -45,7 +45,7 @@ const ListadoServicio = ({ type, id }) => {
           <>
             <AlertDialog
               text="Contratar"
-              content="¿Desea contratar a el compae, este man cobra EQUIS por Hora?"
+              content="¿Desea contratar al trabajador por $600 la hora?"
               fOption="Aceptar"
               sOption="Cerrar"
             />
@@ -62,9 +62,9 @@ const ListadoServicio = ({ type, id }) => {
       numero: "3088888",
       puntuacion: "4.0",
       distancia: "4 mts",
-      descripcion: "Bro, mirá te va a quedar de ptm el cabello.",
-      tipoTarifa: "Por labor",
-      vlrTarifa: "5000",
+      descripcion: "Se te ayudará con la materia que indiques.",
+      tipoTarifa: "Por hora",
+      vlrTarifa: "600",
     },
   ];
 
