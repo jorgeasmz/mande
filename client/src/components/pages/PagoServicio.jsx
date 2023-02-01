@@ -50,14 +50,14 @@ const PagoServicio = () => {
         <div className="Campo">
           <CampoTexto
             etiqueta="Tipo de servicio"
-            value="Ay patrón"
+            value="Tutoría"
             type="text"
           />
         </div>
         <div className="Campo">
           <CampoTexto
             etiqueta="Tipo de tarifa"
-            value="En especie"
+            value="Por hora"
             type="text"
           />
         </div>
@@ -65,7 +65,7 @@ const PagoServicio = () => {
           <CampoTexto etiqueta="Valor tarifa" value="600" type="number" />
         </div>
         <div className="Campo">
-          <CampoTexto etiqueta="Valor a pagar" value="1000" type="number" />
+          <CampoTexto etiqueta="Valor a pagar" value="1200" type="number" />
         </div>
         <div className="Campo">
           <CampoTexto etiqueta="Número de factura" value="300" type="number" />
