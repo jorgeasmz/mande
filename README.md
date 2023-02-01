@@ -1,4 +1,10 @@
 # mande - Proyecto final de la asignatura Bases de Datos.
+```
+Integrantes:
+Jorge Eduardo Arias - 202042055
+María Alejandra Carvajal - 202178495
+Miguel Angel Villaquirán - 201941923
+```
 
 # Back-end.
 
