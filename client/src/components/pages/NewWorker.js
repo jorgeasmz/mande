@@ -1,28 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
   Button,
   TextField,
-  FormGroup,
   InputLabel,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
+  FormLabel
 } from "@mui/material";
-import { Label, PhotoCamera } from "@mui/icons-material";
+import { PhotoCamera } from "@mui/icons-material";
 
 export default function NewWorker() {
   const navigate = useNavigate();
-
-  const FILE_SIZE = 160 * 1024;
-  const SUPPORTED_FORMATS = [
-    "image/jpg",
-    "image/jpeg",
-    "image/gif",
-    "image/png",
-  ];
 
   return (
     <Formik
